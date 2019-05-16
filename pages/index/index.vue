@@ -19,18 +19,11 @@
 			</view>
 		</view>
 		<scroll-view scroll-x="true" class="page-block hot">
-			<view class="single-poster">
+			<view class="single-poster" v-for="superhero in hotSuperList" :key="superhero.id">
 				<view class="poster-wapper">
-					<image src="../../static/poster/civilwar.jpg" class="poster"/>
-					<view class="movie-name">蝙蝠侠蝙蝠侠蝙蝠侠蝙蝠侠</view>
-					<view class="movie-score-wapper">
-						<image src="../../static/icos/star-yellow.png" class="star-ico" />
-						<image src="../../static/icos/star-yellow.png" class="star-ico" />
-						<image src="../../static/icos/star-yellow.png" class="star-ico" />
-						<image src="../../static/icos/star-yellow.png" class="star-ico" />
-						<image src="../../static/icos/star-yellow.png" class="star-ico" />
-						<view class="movie-score">9.1</view>
-					</view>
+					<image :src="superhero.cover" class="poster"/>
+					<view class="movie-name">{{superhero.name}}</view>
+					<TrailerStars :innerScore="superhero.score" />
 				</view>
 			</view>
 		</scroll-view>
@@ -41,6 +34,7 @@
 </template>
 
 <script>
+	import TrailerStars from "../../components/trailerStars.vue";
 	import superRequest from "../../utils/request.js";
 	
 	export default {
@@ -59,6 +53,9 @@
 		},
 		methods: {
 
+		},
+		components:{
+			TrailerStars
 		}
 	}
 </script>

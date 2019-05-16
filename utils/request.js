@@ -1,6 +1,6 @@
 import {serverUrl} from "../constant.js";
 export default class superRequest{
-	static get(url, data) {
+	static get(url, data, type) {
 		return new Promise((resolve, reject) => {
 			uni.request({
 				url: serverUrl+url,
@@ -9,7 +9,7 @@ export default class superRequest{
 					...data
 				},
 				header: {
-					'content-type':'application/x-www-form-urlencoded'
+					'content-type':type ? type :'application/x-www-form-urlencoded'
 				},
 				method:"GET",
 				success: (res) => {
@@ -27,7 +27,7 @@ export default class superRequest{
 			});
 		})
 	}
-	static post(url, data) {
+	static post(url, data, type) {
 		return new Promise((resolve, reject) => {
 			uni.request({
 				url: serverUrl+url,
@@ -36,10 +36,11 @@ export default class superRequest{
 					...data
 				},
 				header: {
-					'content-type':'application/x-www-form-urlencoded'
+					'content-type':type ? type :'application/x-www-form-urlencoded'
 				},
 				method:"POST",
 				success: (res) => {
+					console.log("请求拿到的原始数据:",res);
 					let resData = res.data;
 					// 获取真实数据之前，务必判断状态是否为200
 					if (resData && resData.status == 200) {
