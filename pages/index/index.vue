@@ -29,6 +29,53 @@
 		</scroll-view>
 		<!-- 热门超英 E -->
 		
+		<!-- 热门预告 S-->
+		<view class="page-block super-hot">
+			<view class="hot-title-wapper">
+				<image src="../../static/icos/interest.png" class="hot-ico" />
+				<view class="hot-title">热门预告</view>
+			</view>
+		</view>
+		<view class="hot-movies page-block">
+			<video
+				v-for="trailer in hotTrailerList"
+			 :src="trailer.trailer"
+			 :poster="trailer.poster"
+			 :key="trailer.id"
+			 class="hot-movie-single"
+			 controls></video>
+		</view>
+		<!-- 热门预告 E-->
+		
+		<!-- 猜你喜欢 S-->
+		<view class="page-block super-hot">
+			<view class="hot-title-wapper">
+				<image src="../../static/icos/interest.png" class="hot-ico" />
+				<view class="hot-title">热门预告</view>
+			</view>
+		</view>
+		<view class="page-block guess-u-like">
+			<view class="single-like-movie">
+				<image src="http://122.152.205.72:88/superhero/DC/BatManTheDarkKnightRises/cover.jpg" class="poster"></image>
+				<view class="movie-desc">
+					<view class="movie-title">金钢狼</view>
+					<TrailerStars :innerScore="9" showNum="0"/>
+					<view class="movie-info">
+						2018 / 美国 / 科幻 动作
+					</view>
+					<view class="movie-info">
+						2018 / 美国 / 科幻 动作
+					</view>
+				</view>
+				<view class="movie-oper">
+					<image src="../../static/icos/praise.png" class="praise-ico"></image>
+					<view class="praise-me">
+						点赞
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 猜你喜欢 E-->
 		
 	</view>
 </template>
@@ -41,7 +88,8 @@
 		data() {
 			return {
 				carouseList:[],
-				hotSuperList:[]
+				hotSuperList:[],
+				hotTrailerList:[]
 			}
 		},
 		async onLoad() {
@@ -49,7 +97,9 @@
 			this.carouseList = carouseList;
 			let hotSuperList = await superRequest.post("/index/movie/hot",{type:"superhero"});
 			this.hotSuperList = hotSuperList; 
-			console.log(hotSuperList);
+			let hotTrailerList = await superRequest.post("/index/movie/hot",{type:"trailer"});
+			this.hotTrailerList = hotTrailerList;
+			console.log(hotTrailerList);
 		},
 		methods: {
 
