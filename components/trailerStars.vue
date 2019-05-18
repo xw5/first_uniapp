@@ -3,17 +3,17 @@
 		<view class="movie-score-wapperin">
 			<view class="movie-score-stars">
 				<image src="../static/icos/star-gray.png" class="star-ico" />
-				<image src="../static/icos/star-gray.png" class="star-ico" />
-				<image src="../static/icos/star-gray.png" class="star-ico" />
-				<image src="../static/icos/star-gray.png" class="star-ico" />
-				<image src="../static/icos/star-gray.png" class="star-ico" />
+				<image src="/static/icos/star-gray.png" class="star-ico" />
+				<image src="/static/icos/star-gray.png" class="star-ico" />
+				<image src="/static/icos/star-gray.png" class="star-ico" />
+				<image src="/static/icos/star-gray.png" class="star-ico" />
 			</view>
 			<view class="movie-score-stars movie-score-stars-light" :style="{width:100*innerScore/10+'%'}">
-				<image src="../static/icos/star-yellow.png" class="star-ico" />
-				<image src="../static/icos/star-yellow.png" class="star-ico" />
-				<image src="../static/icos/star-yellow.png" class="star-ico" />
-				<image src="../static/icos/star-yellow.png" class="star-ico" />
-				<image src="../static/icos/star-yellow.png" class="star-ico" />
+				<image src="/static/icos/star-yellow.png" class="star-ico" />
+				<image src="/static/icos/star-yellow.png" class="star-ico" />
+				<image src="/static/icos/star-yellow.png" class="star-ico" />
+				<image src="/static/icos/star-yellow.png" class="star-ico" />
+				<image src="/static/icos/star-yellow.png" class="star-ico" />
 			</view>
 		</view>
 		<view class="movie-score" v-if="showNum != 0">{{innerScore}}</view>
@@ -69,6 +69,7 @@
 	height: 20upx;
 	margin-top: 6upx;
 	flex:0 0 auto;
+	opacity:1;
 }
 .movie-score {
 	font-size: 12px;

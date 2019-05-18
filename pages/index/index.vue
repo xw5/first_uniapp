@@ -55,23 +55,18 @@
 			</view>
 		</view>
 		<view class="page-block guess-u-like">
-			<view class="single-like-movie">
-				<image src="http://122.152.205.72:88/superhero/DC/BatManTheDarkKnightRises/cover.jpg" class="poster"></image>
+			<view class="single-like-movie" v-for="(guessUlike, index) in guessULikeList" :key="guessUlike.id">
+				<image :src="guessUlike.cover" class="poster"></image>
 				<view class="movie-desc">
-					<view class="movie-title">金钢狼</view>
-					<TrailerStars :innerScore="9" showNum="0"/>
-					<view class="movie-info">
-						2018 / 美国 / 科幻 动作
-					</view>
-					<view class="movie-info">
-						2018 / 美国 / 科幻 动作
-					</view>
+					<view class="movie-title">{{guessUlike.name}}</view>
+					<TrailerStars :innerScore="9" :showNum="0"/>
+					<view class="movie-info">{{guessUlike.basicInfo}}</view>
+					<view class="movie-info">{{guessUlike.releaseDate}}</view>
 				</view>
-				<view class="movie-oper">
+				<view class="movie-oper" @click="praiseMe" :data-gIndex="index">
 					<image src="../../static/icos/praise.png" class="praise-ico"></image>
-					<view class="praise-me">
-						点赞
-					</view>
+					<view class="praise-me">点赞</view>
+					<view :animation="animationDataArr[index]" class="praise-me animation-opacity">+1</view>
 				</view>
 			</view>
 		</view>
@@ -89,20 +84,57 @@
 			return {
 				carouseList:[],
 				hotSuperList:[],
-				hotTrailerList:[]
+				hotTrailerList:[],
+				guessULikeList:[],
+				animationDataArr:[]
 			}
 		},
-		async onLoad() {
-			let carouseList = await superRequest.post("/index/carousel/list");
-			this.carouseList = carouseList;
-			let hotSuperList = await superRequest.post("/index/movie/hot",{type:"superhero"});
-			this.hotSuperList = hotSuperList; 
-			let hotTrailerList = await superRequest.post("/index/movie/hot",{type:"trailer"});
-			this.hotTrailerList = hotTrailerList;
-			console.log(hotTrailerList);
+		onLoad() {
+			
+			this.refreshData();
+			// #ifdef APP-PLUS || MP-WEIXIN
+			// 临时动画
+			this.animation = uni.createAnimation();
+			// #endif
+		},
+		onUnload() {
+			// 清除动画
+			this.animation = null;
+			this.animationDataArr = null;
+		},
+		onPullDownRefresh() {
+			this.refreshData();
 		},
 		methods: {
-
+			async refreshData() {
+				uni.showLoading({
+					title:"数据加载中...",
+					mask: true
+				});
+				let carouseList = await superRequest.post("/index/carousel/list");
+				this.carouseList = carouseList;
+				let hotSuperList = await superRequest.post("/index/movie/hot",{type:"superhero"});
+				this.hotSuperList = hotSuperList; 
+				let hotTrailerList = await superRequest.post("/index/movie/hot",{type:"trailer"});
+				this.hotTrailerList = hotTrailerList;
+				let guessULikeList = await superRequest.post("/index/guessULike");
+				this.guessULikeList = guessULikeList;
+				uni.hideLoading();
+				uni.stopPullDownRefresh();
+			},
+			praiseMe(e) {
+				
+				// #ifdef APP-PLUS || MP-WEIXIN
+				let nowIndex = e.currentTarget.dataset.gindex;
+				// 构建动画数据并且通过step表示完成动画
+				this.animation.translateY(-68).opacity(1).step({duration:400});
+				this.animationDataArr.splice(nowIndex,1,this.animation.export());
+				setTimeout(() => {
+					this.animation.translateY(0).opacity(0).step({duration:0});
+					this.animationDataArr.splice(nowIndex,1,this.animation.export());
+				},500);
+				// #endif
+			}
 		},
 		components:{
 			TrailerStars
