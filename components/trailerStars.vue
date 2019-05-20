@@ -2,7 +2,7 @@
 	<view class="movie-score-wapper">
 		<view class="movie-score-wapperin">
 			<view class="movie-score-stars">
-				<image src="../static/icos/star-gray.png" class="star-ico" />
+				<image src="/static/icos/star-gray.png" class="star-ico" />
 				<image src="/static/icos/star-gray.png" class="star-ico" />
 				<image src="/static/icos/star-gray.png" class="star-ico" />
 				<image src="/static/icos/star-gray.png" class="star-ico" />

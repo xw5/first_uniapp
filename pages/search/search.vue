@@ -17,7 +17,13 @@
 		<!-- 搜索区域 E-->
 		<!-- 搜索结果展示 S-->
 		<view class="movie-list page-block">
-			<view class="movie-wapper" v-for="trailer in trailerList" :key="trailer.id">
+			<view
+			class="movie-wapper"
+		  v-for="trailer in trailerList"
+			:key="trailer.id"
+			:data-trailerId="trailer.id"
+			@click="showTrailer"
+			>
 				<image class="poster" :src="trailer.cover"></image>
 			</view>
 			<view v-if="trailerList.length==0" class="no-data">暂无数据</view>
@@ -90,6 +96,12 @@
 					keywords,
 					page,
 					pageSize
+				});
+			},
+			showTrailer(e) {
+				var trailerId = e.currentTarget.dataset.trailerid;
+				uni.navigateTo({
+					url:"../movie/movie?trailerId="+trailerId
 				});
 			}
 		}
