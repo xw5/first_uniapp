@@ -20,7 +20,12 @@
 				}
 		},{
 				"path" : "pages/movie/movie",
-				"style" : {
+				"style": {
+					"app-plus":{
+						"titleNView":{
+							"type":"transparent"
+						}
+					},
 					"navigationBarTitleText": "电影详情"
 				}
 		}
