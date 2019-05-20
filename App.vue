@@ -26,4 +26,15 @@
 		height:100%;
 		background-color:#f7f7f7;
 	}
+	.page-block {
+		background-color: #ffffff;
+	}
+	
+	.line-wapper {
+		padding: 0upx 20upx;
+	}
+	.line {
+		height: 1px;
+		background-color: #DBDBDA;
+	}
 </style>

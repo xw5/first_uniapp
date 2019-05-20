@@ -1,11 +1,11 @@
-import {serverUrl} from "../constant.js";
+import {serverUrl,linkqq} from "../constant.js";
 export default class superRequest{
 	static get(url, data, type) {
 		return new Promise((resolve, reject) => {
 			uni.request({
 				url: serverUrl+url,
 				data: {
-					qq: "2121140461",
+					qq: linkqq,
 					...data
 				},
 				header: {
