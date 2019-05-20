@@ -20,6 +20,7 @@
 			<view class="movie-wapper" v-for="trailer in trailerList" :key="trailer.id">
 				<image class="poster" :src="trailer.cover"></image>
 			</view>
+			<view v-if="trailerList.length==0" class="no-data">暂无数据</view>
 		</view>
 		<!-- 搜索结果展示 E-->
 	</view>

@@ -44,4 +44,11 @@
 .movie-wapper {
 	padding: 10upx 20upx;
 }
+.no-data{
+	width:100%;
+	margin-top:50upx;
+	font-size: 32upx;
+	text-align: center;
+	color:#808080;
+}
 /* 预告片列表 end */
