@@ -4,6 +4,7 @@
 		<!-- 播放视频 S-->
 		<view class="player">
 			<video
+			id="detailVideo"
 			 :src="trailerInfo.trailer"
 			 :poster="trailerInfo.poster"
 			 class="movie"
@@ -13,9 +14,11 @@
 		
 		<!-- 影片基本信息 S-->
 		<view class="movie-info">
-			<image 
-				:src="trailerInfo.cover"
-				class="cover"></image>
+			<navigator :url="'../cover/cover?cover='+trailerInfo.cover">
+				<image 
+					:src="trailerInfo.cover"
+					class="cover"></image>
+			</navigator>
 				
 			<view class="movie-desc">
 				<view class="title">{{trailerInfo.name}}</view>
@@ -69,34 +72,7 @@
 					:src="staff.photo"></image>
 					<view class="actor-name">{{staff.name}}</view>
 					<view class="actor-role">{{staff.actName}}</view>
-				</view>
-				
-				<!-- <view
-				class="actor-wapper"
-				v-for="director in directorArray"
-				:key="director.staffId"
-				>
-					<image
-					class="single-actor"
-					mode="aspectFill"
-					:src="director.photo"></image>
-					<view class="actor-name">{{director.name}}</view>
-					<view class="actor-role">{{director.actName}}</view>
-				</view>
-				
-				<view
-				class="actor-wapper"
-				v-for="actor in actorArray"
-				:key="actor.staffId"
-				>
-					<image
-					class="single-actor"
-					mode="aspectFill"
-					:src="actor.photo"></image>
-					<view class="actor-name">{{actor.name}}</view>
-					<view class="actor-role">{{actor.actName}}</view>
-				</view> -->
-				
+				</view>			
 			</scroll-view>
 		</view>
 		<!-- 演职人员 E-->
@@ -141,6 +117,48 @@
 			let actorArray = await superRequest.post(`/search/staff/${params.trailerId}/2`);
 			this.actorArray=actorArray;
 		},
+		onShow() {
+			if (this.video) {
+				this.video.play();
+			}
+		},
+		onReady() {
+			this.video = uni.createVideoContext("detailVideo");
+		},
+		onHide() {
+			this.video.pause();
+		},
+		// #ifdef MP
+		onShareAppMessage(res) {
+			return {
+				title:this.trailerInfo.name,
+				path:"/pages/movie/movie?tarilerId="+this.trailerInfo.id
+			}
+		},
+		// #endif
+		// #ifdef APP-PLUS
+		onNavigationBarButtonTap(e) {
+			let index = e.index;
+			let trailerInfo = this.trailerInfo;
+			if (index == 0) {
+				uni.share({
+					provider: "weixin",
+					scene: "WXSceneSession",
+					type: 0,
+					href: "http://www.imovietrailer.com/#/pages/movie/movie?tarilerId="+this.trailerInfo.id,
+					title: "超英预告:《"+trailerInfo.name+"》",
+					summary: "超英预告:《"+trailerInfo.name+"》",
+					imageUrl:trailerInfo.cover,
+					success: function (res) {
+							console.log("success:" + JSON.stringify(res));
+					},
+					fail: function (err) {
+							console.log("fail:" + JSON.stringify(err));
+					}
+				});
+			}
+		},
+		// #endif
 		methods: {
 			// 查看剧照
 			lookMe(e) {

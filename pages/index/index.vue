@@ -5,7 +5,9 @@
 		<swiper class="swiper_con" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
 			<block :key="item.id" v-for="item in carouseList">
 				<swiper-item class="swiper_item" v-if="item.isShow">
-					<image :src="item.image" class="carousel" />
+					<navigator open-type="navigate" :url="'../movie/movie?trailerId='+item.movieId">
+						<image :src="item.image" class="carousel" />
+					</navigator>
 				</swiper-item>
 			</block>
 		</swiper>
@@ -20,11 +22,13 @@
 		</view>
 		<scroll-view scroll-x="true" class="page-block hot">
 			<view class="single-poster" v-for="superhero in hotSuperList" :key="superhero.id">
-				<view class="poster-wapper">
-					<image :src="superhero.cover" class="poster"/>
-					<view class="movie-name">{{superhero.name}}</view>
-					<TrailerStars :innerScore="superhero.score" />
-				</view>
+				<navigator open-type="navigate" :url="'../movie/movie?trailerId='+superhero.id">
+					<view class="poster-wapper">
+						<image :src="superhero.cover" class="poster"/>
+						<view class="movie-name">{{superhero.name}}</view>
+						<TrailerStars :innerScore="superhero.score" />
+					</view>
+				</navigator>
 			</view>
 		</scroll-view>
 		<!-- 热门超英 E -->
@@ -37,13 +41,23 @@
 			</view>
 		</view>
 		<view class="hot-movies page-block">
-			<video
+			<!-- <video
 				v-for="trailer in hotTrailerList"
 			 :src="trailer.trailer"
 			 :poster="trailer.poster"
 			 :key="trailer.id"
 			 class="hot-movie-single"
-			 controls></video>
+			 controls></video> -->
+			 <view 
+			 v-for="trailer in hotTrailerList"
+			 :key="trailer.id"
+			 :data-src="trailer.trailer"
+			 @click="playVideo"
+			 class="hot-movie-single"
+			 >
+				 <image class="poster_video" :src="trailer.poster" mode="aspectFill"></image>
+				 <image class="play_icon" src="../../static/icos/playicon.png"></image>
+			 </view>
 		</view>
 		<!-- 热门预告 E-->
 		
@@ -56,7 +70,9 @@
 		</view>
 		<view class="page-block guess-u-like">
 			<view class="single-like-movie" v-for="(guessUlike, index) in guessULikeList" :key="guessUlike.id">
-				<image :src="guessUlike.cover" class="poster"></image>
+				<navigator :url="'../movie/movie?trailerId='+guessUlike.id">
+					<image :src="guessUlike.cover" class="poster"></image>
+				</navigator>
 				<view class="movie-desc">
 					<view class="movie-title">{{guessUlike.name}}</view>
 					<TrailerStars :innerScore="9" :showNum="0"/>
@@ -134,6 +150,9 @@
 					this.animationDataArr.splice(nowIndex,1,this.animation.export());
 				},500);
 				// #endif
+			},
+			playVideo(e) {
+				console.log("首页当前要播放的电影：",e.currentTarget.dataset.src);
 			}
 		},
 		components:{

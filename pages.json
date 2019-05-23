@@ -1,17 +1,17 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path" : "pages/search/search",
-			"style" : {
-				"navigationBarTitleText": "搜索预告片"
-			}
-		},{
 			"path": "pages/index/index",
 			"style": {
 				"app-plus":{
 					"titleNView":false
 				},
 				"enablePullDownRefresh":true
+			}
+		},{
+			"path" : "pages/search/search",
+			"style" : {
+				"navigationBarTitleText": "搜索预告片"
 			}
 		},{
 				"path" : "pages/me/me",
@@ -23,12 +23,24 @@
 				"style": {
 					"app-plus":{
 						"titleNView":{
-							"type":"transparent"
+							"type":"transparent",
+							"buttons":[
+								{
+									"type":"share"
+								}
+							]
 						}
 					},
 					"navigationBarTitleText": "电影详情"
 				}
-		}
+		},{
+				"path" : "pages/cover/cover",
+				"style" : {
+					"navigationBarTitleText": "封面",
+					"navigationBarTextStyle":"white",
+					"navigationBarBackgroundColor":"#000000"
+				}
+			}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

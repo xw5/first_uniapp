@@ -32,7 +32,7 @@ export default class superRequest{
 			uni.request({
 				url: serverUrl+url,
 				data: {
-					qq: "2121140461",
+					qq: linkqq,
 					...data
 				},
 				header: {
