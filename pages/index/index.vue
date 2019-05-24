@@ -51,7 +51,7 @@
 			 <view 
 			 v-for="trailer in hotTrailerList"
 			 :key="trailer.id"
-			 :data-src="trailer.trailer"
+			 :data-video="trailer"
 			 @click="playVideo"
 			 class="hot-movie-single"
 			 >
@@ -87,13 +87,14 @@
 			</view>
 		</view>
 		<!-- 猜你喜欢 E-->
-		
+		<VideoDlg :video="nowVideo" v-if="showVideo" @hideVideo="hideVideo"/>
 	</view>
 </template>
 
 <script>
 	import TrailerStars from "../../components/trailerStars.vue";
 	import superRequest from "../../utils/request.js";
+	import VideoDlg from "../../components/video.vue";
 	
 	export default {
 		data() {
@@ -102,7 +103,9 @@
 				hotSuperList:[],
 				hotTrailerList:[],
 				guessULikeList:[],
-				animationDataArr:[]
+				animationDataArr:[],
+				nowVideo:null,
+				showVideo:false
 			}
 		},
 		onLoad() {
@@ -152,11 +155,17 @@
 				// #endif
 			},
 			playVideo(e) {
-				console.log("首页当前要播放的电影：",e.currentTarget.dataset.src);
+				console.log("首页当前要播放的电影：",e.currentTarget.dataset.video);
+				this.nowVideo = e.currentTarget.dataset.video;
+				this.showVideo = true;
+			},
+			hideVideo() {
+				this.showVideo = false;
 			}
 		},
 		components:{
-			TrailerStars
+			TrailerStars,
+			VideoDlg
 		}
 	}
 </script>
