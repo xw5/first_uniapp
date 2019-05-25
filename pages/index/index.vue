@@ -74,7 +74,9 @@
 					<image :src="guessUlike.cover" class="poster"></image>
 				</navigator>
 				<view class="movie-desc">
-					<view class="movie-title">{{guessUlike.name}}</view>
+					<navigator :url="'../movie/movie?trailerId='+guessUlike.id">
+						<view class="movie-title">{{guessUlike.name}}</view>
+					</navigator>
 					<TrailerStars :innerScore="9" :showNum="0"/>
 					<view class="movie-info">{{guessUlike.basicInfo}}</view>
 					<view class="movie-info">{{guessUlike.releaseDate}}</view>

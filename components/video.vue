@@ -1,5 +1,6 @@
 <template>
 	<view class="video_wrap" @click="hideVideo">
+		<Text class="video_title">{{video.name}}</Text>
 		<video
 		 :src="video.trailer"
 		 :poster="video.poster"
@@ -50,8 +51,15 @@
 		left:0;
 		z-index:100;
 		display:flex;
+		flex-direction: column;
 		align-items: center;
+		justify-content: center;
 		background-color:rgba(0,0,0,0.8);
+	}
+	.video_title{
+		font-size:36upx;
+		margin-bottom: 30upx;
+		color:#EAEAEA
 	}
 	.movie-con{
 		width:100%;
