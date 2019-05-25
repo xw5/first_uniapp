@@ -1,8 +1,8 @@
 <template>
 	<view class="page">
 		<view class="user_detail">
-			<image class="user_header" src="http://iph.href.lu/200x200?text=?" />
-			<text class="user_name">无名氏</text>
+			<image class="user_header" :src="avatarUrl" />
+			<text class="user_name">{{nickName}}</text>
 		</view>
 		
 		<!-- #ifdef MP-WEIXIN -->
@@ -31,7 +31,8 @@
 	export default {
 		data() {
 			return {
-				
+				nickName:"无名氏",
+				avatarUrl: "http://iph.href.lu/200x200?text=?"
 			}
 		},
 		methods: {
